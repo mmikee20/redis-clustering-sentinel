@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  redis-node1:
+    image: redis:7
+    container_name: redis-node1
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./redis-node1/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis-node1/data:/data
+    ports:
+      - "7001:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.11
+
+  redis-node2:
+    image: redis:7
+    container_name: redis-node2
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./redis-node2/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis-node2/data:/data
+    ports:
+      - "7002:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.12
+
+  redis-node3:
+    image: redis:7
+    container_name: redis-node3
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./redis-node3/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis-node3/data:/data
+    ports:
+      - "7003:6379"
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.13
+
+  sentinel1:
+    image: redis:7
+    container_name: sentinel1
+    command: ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
+    volumes:
+      - ./sentinel1:/usr/local/etc/redis
+    ports:
+      - "26381:26379"
+    depends_on: [redis-node1, redis-node2, redis-node3]
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.21
+    restart: unless-stopped
+
+  sentinel2:
+    image: redis:7
+    container_name: sentinel2
+    command: ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
+    volumes:
+      - ./sentinel1:/usr/local/etc/redis
+    ports:
+      - "26382:26379"
+    depends_on: [redis-node1, redis-node2, redis-node3]
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.22
+    restart: unless-stopped
+
+  sentinel3:
+    image: redis:7
+    container_name: sentinel3
+    command: ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
+    volumes:
+      - ./sentinel1:/usr/local/etc/redis
+    ports:
+      - "26383:26379"
+    depends_on: [redis-node1, redis-node2, redis-node3]
+    networks:
+      redis-net:
+        ipv4_address: 172.30.0.23
+    restart: unless-stopped
+
+networks:
+  redis-net:
+    external:
+      name: redis-net
+    #name: redis-net
+    #driver: bridge
+    #ipam:
+    #  config:
+    #    - subnet: 172.25.0.0/24
