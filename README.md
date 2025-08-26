@@ -17,9 +17,11 @@ Executing Redis cluster bootstrapping with CLI
 Observing failover behavior using Sentinel
 
 Objectives
+=====================
 Set up a functional 3-node Redis Cluster with Sentinel using Docker Compose. The cluster should be initialized with 3 Redis nodes (1 master + 2 replicas) and 3 Sentinel nodes that monitor the Redis master and handle automatic failover.
 
 Requirements
+=======================
 Use official redis:7 image.
 
 Create 3 Redis nodes: redis-node1, redis-node2, redis-node3.
@@ -56,9 +58,10 @@ sentinel monitor mymaster redis-node1 6379 2
 sentinel down-after-milliseconds mymaster 5000
 sentinel failover-timeout mymaster 10000
 sentinel parallel-syncs mymaster 1
+
+
 Docker Compose File
-
-
+==================================================================================
 version: '3.8'
 
 services:
@@ -154,6 +157,7 @@ docker exec -it redis-node1 redis-cli --cluster create \
 
 
 Learning Resources
+==================================
 Redis Cluster Overview: Scale with Redis Cluster https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/ 
 
 Redis Sentinel: High availability with Redis Sentinel https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/
