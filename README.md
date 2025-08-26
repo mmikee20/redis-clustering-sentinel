@@ -151,13 +151,15 @@ After starting the containers:
 docker exec -it redis-node1 redis-cli --cluster create \
   172.25.0.11:6379 172.25.0.12:6379 172.25.0.13:6379 \
   --cluster-replicas 1
+
+
 Learning Resources
-Redis Cluster Overview: Scale with Redis Cluster 
+Redis Cluster Overview: Scale with Redis Cluster https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/ 
 
-Redis Sentinel: High availability with Redis Sentinel 
+Redis Sentinel: High availability with Redis Sentinel https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/
 
-Docker Compose Reference: Compose file reference 
+Docker Compose Reference: Compose file reference https://docs.docker.com/compose/compose-file/
 
-Docker Networking Guide: Networking 
+Docker Networking Guide: Networking https://docs.docker.com/network/
 
-Redis Docker Hub: redis - Official Image | Docker Hub
+Redis Docker Hub: redis - Official Image | Docker Hub  https://hub.docker.com/_/redis
