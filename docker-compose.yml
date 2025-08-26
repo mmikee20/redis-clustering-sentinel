@@ -59,7 +59,7 @@ services:
     container_name: sentinel2
     command: ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
     volumes:
-      - ./sentinel1:/usr/local/etc/redis
+      - ./sentinel2:/usr/local/etc/redis
     ports:
       - "26382:26379"
     depends_on: [redis-node1, redis-node2, redis-node3]
@@ -73,7 +73,7 @@ services:
     container_name: sentinel3
     command: ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
     volumes:
-      - ./sentinel1:/usr/local/etc/redis
+      - ./sentinel3:/usr/local/etc/redis
     ports:
       - "26383:26379"
     depends_on: [redis-node1, redis-node2, redis-node3]
